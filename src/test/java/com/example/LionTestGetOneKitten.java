@@ -20,8 +20,9 @@ public class LionTestGetOneKitten {
 
     @Test
     public void getKittensOneKittenTest() throws Exception{
-        Lion lion = new Lion("Самец");
+        Lion lion = new Lion("Самец", feline);
         Mockito.when(feline.getKittens()).thenReturn(1);
         assertEquals(1, lion.getKittens());
     }
+
 }

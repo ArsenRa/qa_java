@@ -21,11 +21,8 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest  {
 
-
-    Predator predator = Mockito.mock(Predator.class);
     Feline feline = Mockito.mock(Feline.class);
-    Lion lion = Mockito.mock(Lion.class);
-    Animal animal = Mockito.mock(Animal.class);
+    //Lion lion = Mockito.mock(Lion.class);
 
     @Before
     public void init(){
@@ -34,24 +31,13 @@ public class LionTest  {
 
     @Test(expected = Exception.class)
     public void lionSexHaveExceptionTest() throws Exception {
-        Lion lion = new Lion(" ");
+        Lion lion = new Lion(" ", feline);
         lion.doesHaveMane();
     }
 
-    @Test(expected = AssertionError.class)
-    public void exceptionMessageErrorTest() throws AssertionError {
-        try {
-            Lion lion = new Lion(" ");
-            Assert.fail("Expected AssertionError");
-        }
-        catch (Exception thrown) {
-            Assert.assertNotEquals("Используйте допустимые значения пола животного - самец или самка", thrown.getMessage());
-        }
-    }
-
     @Test
-    public void isLionHaveManeTruTest() throws Exception {
-        Lion lion = new Lion("Самец");
+    public void isLionHaveManeTrueTest() throws Exception {
+        Lion lion = new Lion("Самец", feline);
         boolean expectedHasMane = true;
         boolean actualHasMane = lion.doesHaveMane();
         assertEquals(expectedHasMane, actualHasMane);
@@ -59,7 +45,7 @@ public class LionTest  {
 
     @Test
     public void isLionHaveManeFalseTest() throws Exception {
-        Lion lion = new Lion("Самка");
+        Lion lion = new Lion("Самка", feline);
         boolean expectedHasMane = false;
         boolean actualHasMane = lion.doesHaveMane();
         assertEquals(expectedHasMane, actualHasMane);
@@ -67,7 +53,7 @@ public class LionTest  {
 
     @Test
     public void getLionDoNotHaveKittensTest() throws Exception {
-
+        Lion lion = new Lion("Самец", feline);
         int expectedGetKittens = 0;
         int actualGetKittens = lion.getKittens();
 
@@ -76,11 +62,20 @@ public class LionTest  {
 
     @Test
     public void getLionEatMeatTest() throws Exception {
-        Lion lion = new Lion("Самец");
-        //Mockito.when(feline.getFood("Хищник")).thenReturn(Arrays.asList("Животные", "Птицы", "Рыба"));
+        Lion lion = new Lion("Самец", feline);
+        Mockito.when(feline.getFood("Хищник")).thenReturn(Arrays.asList("Животные", "Птицы", "Рыба"));
         List<String> expectedEatMeat = Arrays.asList("Животные", "Птицы", "Рыба");
         List<String> actualEatMeat = lion.getFood();
         assertEquals(expectedEatMeat, actualEatMeat);
+    }
+
+    @Test
+    public void shouldCheckKittensLionTest() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        int actual = lion.getKittens();
+        System.out.println(actual);
+        assertEquals(actual,lion.getKittens());
+
     }
 
 }

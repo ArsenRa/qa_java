@@ -65,6 +65,7 @@ public class FelineTest {
         Feline feline = new Feline();
         int actual = feline.getKittens();
         System.out.println(actual);
+        assertEquals(actual,feline.getKittens());
 
     }
 
